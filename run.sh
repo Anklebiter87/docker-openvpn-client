@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Start iptables
 # Allow loopback device (internal communication)
@@ -10,12 +10,12 @@ iptables -A OUTPUT -o lo -j ACCEPT
 #iptables -A OUTPUT -d 172.17.0.1/24 -j ACCEPT
 
 # Allow DNS
-iptables -A OUTPUT -p udp -o eth0 -d $(DNSIP) --dport 53 -j ACCEPT
-iptables -A INPUT -p udp -i eth0 -s $(DNSIP) --sport 53 -j ACCEPT
+iptables -A OUTPUT -p udp -o eth0 -d $DNSIP --dport 53 -j ACCEPT
+iptables -A INPUT -p udp -i eth0 -s $DNSIP --sport 53 -j ACCEPT
 
 # Allow VPN establishment
-iptables -A OUTPUT -p udp -o eth0 -dst $(VPNIP) --dport $(VPNPORT) -j ACCEPT
-iptables -A INPUT -p udp -i eth0 -src $(VPNIP) --sport $(VPNPORT) -j ACCEPT
+iptables -A OUTPUT -p udp -o eth0 -d $VPNIP --dport $VPNPORT -j ACCEPT
+iptables -A INPUT -p udp -i eth0 -s $VPNIP --sport $VPNPORT -j ACCEPT
 
 # Allow all TUN connections
 iptables -A OUTPUT -o vpn_tun -j ACCEPT
@@ -26,6 +26,8 @@ iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
 
+cd /etc/openvpn
+
 # Start vpn
-openvpn --config /etc/openvpn/vpn.conf
+openvpn --config vpn.ovpn
 
