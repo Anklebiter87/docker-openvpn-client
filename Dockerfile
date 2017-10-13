@@ -12,4 +12,4 @@ COPY run.sh /usr/sbin
 # Give run the execute flag
 RUN chmod 755 /usr/sbin/run.sh
 
-ENTRYPOINT /usr/sbin/run.sh
+ENTRYPOINT /bin/sh
