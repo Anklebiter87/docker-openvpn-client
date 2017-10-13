@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # Start iptables
 # Allow loopback device (internal communication)
