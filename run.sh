@@ -6,8 +6,8 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 
 # Allow all local traffic.
-#iptables -A INPUT -s 172.17.0.1/24 -j ACCEPT
-#iptables -A OUTPUT -d 172.17.0.1/24 -j ACCEPT
+iptables -A INPUT -s 172.17.0.1/24 -j ACCEPT
+iptables -A OUTPUT -d 172.17.0.1/24 -j ACCEPT
 
 # Allow DNS
 iptables -A OUTPUT -p udp -o eth0 -d $DNSIP --dport 53 -j ACCEPT
