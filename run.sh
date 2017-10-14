@@ -6,8 +6,8 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 
 # Allow all local traffic.
-#iptables -A INPUT -s 172.18.0.1/24 -j ACCEPT
-#iptables -A OUTPUT -d 172.18.0.1/24 -j ACCEPT
+iptables -A INPUT -s 172.16.0.1/12 -j ACCEPT
+iptables -A OUTPUT -d 172.16.0.1/12 -j ACCEPT
 
 # Allow VPN establishment
 iptables -A OUTPUT -p udp -o eth0 -d $VPNIP --dport $VPNPORT -j ACCEPT
