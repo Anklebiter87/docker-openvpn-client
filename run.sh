@@ -9,10 +9,6 @@ iptables -A OUTPUT -o lo -j ACCEPT
 #iptables -A INPUT -s 172.18.0.1/24 -j ACCEPT
 #iptables -A OUTPUT -d 172.18.0.1/24 -j ACCEPT
 
-# Allow DNS
-#iptables -A OUTPUT -p udp -o eth0 -d $DNSIP --dport 53 -j ACCEPT
-#iptables -A INPUT -p udp -i eth0 -s $DNSIP --sport 53 -j ACCEPT
-
 # Allow VPN establishment
 iptables -A OUTPUT -p udp -o eth0 -d $VPNIP --dport $VPNPORT -j ACCEPT
 iptables -A INPUT -p udp -i eth0 -s $VPNIP --sport $VPNPORT -j ACCEPT
