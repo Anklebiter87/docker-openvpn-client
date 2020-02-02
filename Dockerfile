@@ -1,4 +1,4 @@
-FROM base/archlinux
+FROM archlinux
 LABEL maintainer="anklebiter87@gmail.com"
 
 # Add openvpn
