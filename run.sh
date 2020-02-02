@@ -24,6 +24,9 @@ iptables -P FORWARD DROP
 
 cd /etc/openvpn
 
+#add module
+modprobe tun
+
 # Start vpn
 openvpn --config vpn.ovpn
 
