@@ -46,7 +46,7 @@ class VpnManager:
         self.session = None
         self.vpnGate = VpnGate()
         self.failedVpnCheckCount = 0
-        self.maxPulledConfigs = 20
+        self.maxPulledConfigs = 15
 
     def checkTor(self):
         url = 'https://check.torproject.org/api/ip'
@@ -80,8 +80,9 @@ class VpnManager:
                 self.failedVpnCheckCount = self.failedVpnCheckCount + 1
         except SiteNotPulled:
             print(f"{datetime.now()}: Failed to pull vpn check site")
-            self.killVpn()
-
+            if(self.failedVpnCheckCount > 3):
+                self.killVpn()
+            self.failedVpnCheckCount = self.failedVpnCheckCount + 1
         return self.vpnStarted
 
     def _request_get(self, fullurl, useProxy=True):
@@ -93,7 +94,7 @@ class VpnManager:
                      "http": 'socks5h://tor-proxy:9050'}
 
         try:
-            resp = get(fullurl, headers=headers, proxies=proxy, timeout=10)
+            resp = get(fullurl, headers=headers, proxies=proxy, timeout=30)
             if resp.status_code != 200:
                 raise SiteNotPulled
             return loads(resp.text)
